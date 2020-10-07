@@ -1,0 +1,74 @@
+﻿<#@ output extension=".cs" #>
+<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ assembly name="$(CommonFolder)\Postman.Common.dll" #>
+<#@ assembly name="$(JsonFolder)\Newtonsoft.Json.dll" #>
+<#@ import namespace="Postman.Common" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+using System.Reflection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+namespace Postman.Wrapper
+{
+<#
+string[] files = new Setup().GetCollectionFilePaths();                                   
+foreach (string jsonFile in files)
+{
+string content = File.ReadAllText(jsonFile);
+var json = Newtonsoft.Json.JsonConvert.DeserializeObject<Collection>(content);
+#>
+    [TestClass]
+    public class <#= json.info.name.RemoveSpecialCharacters() #>
+    {
+        public TestContext TestContext { get; set; }
+
+<#
+foreach (var item in json.item)
+{
+PostmanFolderDecoration pfd = new PostmanFolderDecoration(item);
+if (pfd.InUse)
+{
+foreach (TestCase tc in pfd.TestCaseList)
+{
+#>
+        [TestMethod]
+        [Timeout(1000*60)]
+		[TestProperty("AdoId", "<#=tc.Id#>")]
+<#
+if (tc.Dataline != string.Empty)
+{
+#>
+        public void <#= item.name.RemoveSpecialCharacters()#>_<#= tc.Id#>() { new PostmanWrapper(this.GetType().Name, "<#= item.name.RemoveSpecialCharacters()#>", "<#=tc.Dataline#>").Run(TestContext); }
+
+<#
+}
+else
+{
+#>
+        public void <#= item.name.RemoveSpecialCharacters()#>_<#= tc.Id#>() { new PostmanWrapper(this.GetType().Name, "<#= item.name.RemoveSpecialCharacters()#>").Run(TestContext); }
+
+<#
+}
+}
+}
+else
+{
+#>
+        [TestMethod]
+        [Timeout(1000*60)]
+        public void <#= item.name.RemoveSpecialCharacters() #>() { new PostmanWrapper(this.GetType().Name, "<#= item.name.RemoveSpecialCharacters()#>").Run(TestContext); }
+
+<#
+}
+}
+#>
+    }
+
+<#
+}
+#>
+}

@@ -1,0 +1,53 @@
+
+Files:
+
+	Postman files of type: Environment, Globals and Data files files must be saved in same directory as the Collection file.
+	Collection files may be in different directories.
+	It it expected that all collection files (as well as other postman files) are checked into a git repository.
+
+	Postman files must use the default Postman naming conventions:
+		<CollectionName>.postman_collection.json
+		<CollectionName>.postman_environment.json
+		<CollectionName>.postman_globals.json
+		<CollectionName>.data.csv OR <CollectionName>.data.xls
+
+ADO <-> Postman mapping:
+
+	During a test build, the mapping between ADO and Postman is performed as:
+		Postman Collection files are parsed for Postman Folders
+		For each found Postman Folder, the following logic is performed:
+		
+			If the Postman Folder Description does not contain a <metadata> element, the folder is mapped to one ADO Test Case. It is checked whether an ADO test case representing the Postman Folder already exists, by filtering on ADO Test Case name = "<CollectionName> - <FolderName>. If found, the ADO test case field is verified and updated if necessary. If not found, a new ADO test case will be created, under the ADO Area Path defined in the AzureDevops.xml file (in the WorkItemGenerator project). Notice that it is important not to change the ADO Test Case name if no <metadata> is present in the Postman Folder Description.
+			
+			The Postman Folder Description can contain a <metadata> element of the following format:
+				<metadata>
+					<testcase adoid='123451' dataline='column1datalinecontent1'/>
+					<testcase adoid='123452' dataline='column1datalinecontent2'/>
+				</metadata>
+			In the this case, the mapping to ADO Test Case(s) is already specified and the ADO Test Case(s) must therefore be existing. If the specifed ADO Test Case(s) do not exist,  the test build pipeline will fail.
+			The mapping is done through the  "adoid> attribute.
+			Notice that in  the <testcase> element, the following is possible:
+				One Postman Folder can be mapped to multiple ADO Test Cases.
+				If a datafile of type csv exists for the collection, it is possible to filter which data line(s) should be used for each ADO test case. If the "dataline" attribute is specifed, all lines in the datafile containing the "dataline" value in the first column will be used by the ADO test case. There must be at least one match. It is possible to use a ";" separator in the "dataline" attribute to specify multiple values for matching the first column in the data file.
+				If a datafile exists for the collection, and no "dataline" attribute is specified, the entire datafile is used when executing the Postman folder.
+			Notice that the <metadata> element must be valid XML data, otherwise the test build will fail.
+			Notice that the text before and after the <metadata> element can be used - it is ignored when the test build is reading the <metadata> element.
+			
+Pipelines:
+
+	Two pipelines are used:
+	
+		A test build pipeline will build the Wrapper solution. During the test build, two things will happen:
+			1) a MSTest wrapper library is built, creating a wrapper Test Method for each Postman Folder (or multiple wrapper Test Methods if a Postman Folder is mapped to multiple ADO Test Cases).
+			The wrapper library and all Postman files are published as ADO Build Artifacts.
+			2) All MSTest wrapper Test Methods are mapped to ADO test cases as described above.
+			
+			Basically, when new or modified Postman test cases are added to the repository, a test build needs to be performed in order to create corresponding ADO Build Artifacts.
+
+			Notes:
+			1) Ensure system access token is available for build task.
+			2) If using MS hosted build agents, use the 2019 version.
+			
+		A release pipeline is used for executing the tests from an ADO Test Plan.
+			The published ADO Build Artifacts are used when specifing which test build to be used for executing the ADO Test Cases.
+			Each wrapper test case handles the execution through Newman command line functionality. Discovery of environment, globals and data files belonging to the collection file in which the Postman Folder resides, is done by following the standard file naming convention specified above. If any of these files are not found based on the standard file naming convention, they are not being used as part of the Newman execution.

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Data>
+  <Connection>
+    <Url>MyUrlToADO</Url>
+    <Project>MyProjectName</Project>
+  </Connection>
+  <TestCase>
+    <AreaPath>MyAreaPathInADO</AreaPath>
+    <CustomFields>
+      <!--CustomField id="MyCustomType1" defaultvalue="Value1"/-->
+      <!-->CustomField id="MyCustomType2" defaultvalue="Value2"/-->
+    </CustomFields>
+  </TestCase>
+</Data> 
