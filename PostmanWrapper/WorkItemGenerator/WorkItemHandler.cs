@@ -96,7 +96,11 @@ public class WorkItemHandler
                 {
                     Task<WorkItem> item = witClient.UpdateWorkItemAsync(patchDoc, project, wir.Id);
                     item.GetAwaiter().GetResult();
-                    Console.WriteLine("Update linked Test Case : " + workItemId);
+                    Console.WriteLine("Update manually linked Test Case : " + workItemId);
+                }
+                else
+                {
+                    Console.WriteLine("Manually linked Test Case already up to date : " + workItemId);
                 }
             }
             else
@@ -113,7 +117,7 @@ public class WorkItemHandler
                     Task<WorkItem> item = witClient.CreateWorkItemAsync(patchDoc, project, ADOTestCaseWorkItemType());
                     var res = item.GetAwaiter().GetResult();
                     workItemId = (int)res.Id;
-                    Console.WriteLine("Create un-linked Test Case : " + workItemId);
+                    Console.WriteLine("Create automatically linked Test Case : " + workItemId);
                 }
                 else if (result.WorkItems.Count() == 1)
                 {
@@ -125,7 +129,11 @@ public class WorkItemHandler
                     {
                         Task<WorkItem> item = witClient.UpdateWorkItemAsync(patchDoc, project, wir.Id);
                         item.GetAwaiter().GetResult();
-                        Console.WriteLine("Update un-linked Test Case : " + workItemId);
+                        Console.WriteLine("Update automatically linked Test Case : " + workItemId);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Automatically linked Test Case already up to date : " + workItemId);
                     }
                 }
                 else
