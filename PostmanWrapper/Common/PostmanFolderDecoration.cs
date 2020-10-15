@@ -18,7 +18,7 @@ namespace Postman.Common
         {
             TestCaseList = new List<TestCase>();
 
-            if (item != null && !string.IsNullOrEmpty(item.description))
+            if (item != null && !string.IsNullOrEmpty(item.description) && item.description.Contains(metadataElementStart))
             {
                 int start = item.description.IndexOf(metadataElementStart);
                 int end = item.description.LastIndexOf(metadataElementEnd);
