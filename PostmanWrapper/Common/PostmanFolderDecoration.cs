@@ -12,19 +12,19 @@ namespace Postman.Common
         string metadataElementStart = "<metadata>";
         string metadataElementEnd = "</metadata>";
         XmlDocument doc;
-        public List<TestCase> TestCaseList;
+        public List<DataTestCase> DataTestCaseList;
 
-        public PostmanFolderDecoration(Item item)
+        public PostmanFolderDecoration(Folder folder)
         {
-            TestCaseList = new List<TestCase>();
+            DataTestCaseList = new List<DataTestCase>();
 
-            if (item != null && !string.IsNullOrEmpty(item.description) && item.description.Contains(metadataElementStart))
+            if (folder != null && !string.IsNullOrEmpty(folder.Description) && folder.Description.Contains(metadataElementStart))
             {
-                int start = item.description.IndexOf(metadataElementStart);
-                int end = item.description.LastIndexOf(metadataElementEnd);
-                if (start == -1) throw new Exception(string.Format("Could not find {0}  in {1}", metadataElementStart, item.name));
-                if (end== -1) throw new Exception(string.Format("Could not find {0}  in {1}", metadataElementEnd, item.name));
-                string description = item.description.Substring(start, end + metadataElementEnd.Length - start);
+                int start = folder.Description.IndexOf(metadataElementStart);
+                int end = folder.Description.LastIndexOf(metadataElementEnd);
+                if (start == -1) throw new Exception(string.Format("Could not find {0}  in {1}", metadataElementStart, folder.Name));
+                if (end== -1) throw new Exception(string.Format("Could not find {0}  in {1}", metadataElementEnd, folder.Name));
+                string description = folder.Description.Substring(start, end + metadataElementEnd.Length - start);
 
                 doc = new XmlDocument();
                 try
@@ -40,7 +40,7 @@ namespace Postman.Common
         {
             get
             {
-                return TestCaseList.Count > 0;
+                return DataTestCaseList.Count > 0;
             }
         }
 
@@ -50,17 +50,17 @@ namespace Postman.Common
 
             foreach (XmlNode node in nodes)
             {
-                TestCase tc = new TestCase();
+                DataTestCase tc = new DataTestCase();
                 if (node.Attributes["adoid"] != null) tc.Id = node.Attributes["adoid"].Value;
                 if (node.Attributes["dataline"] != null) tc.Dataline = node.Attributes["dataline"].Value;
-                TestCaseList.Add(tc);
+                DataTestCaseList.Add(tc);
             }
         }
     }
 
-    public class TestCase
+    public class DataTestCase
     {
-        public TestCase()
+        public DataTestCase()
         {
             Id = string.Empty;
             Dataline = string.Empty;

@@ -18,21 +18,20 @@ namespace Postman.Wrapper
 string[] files = new Setup().GetCollectionFilePaths();                                   
 foreach (string jsonFile in files)
 {
-string content = File.ReadAllText(jsonFile);
-var json = Newtonsoft.Json.JsonConvert.DeserializeObject<Collection>(content);
+CollectionFile cf = new CollectionFile(jsonFile);
 #>
     [TestClass]
-    public class <#= json.info.name.RemoveSpecialCharacters() #>
+    public class <#= cf.Name #>
     {
         public TestContext TestContext { get; set; }
 
 <#
-foreach (var item in json.item)
+foreach (Folder folder in cf.Folders)
 {
-PostmanFolderDecoration pfd = new PostmanFolderDecoration(item);
+PostmanFolderDecoration pfd = new PostmanFolderDecoration(folder);
 if (pfd.InUse)
 {
-foreach (TestCase tc in pfd.TestCaseList)
+foreach (DataTestCase tc in pfd.DataTestCaseList)
 {
 #>
         [TestMethod]
@@ -42,14 +41,14 @@ foreach (TestCase tc in pfd.TestCaseList)
 if (tc.Dataline != string.Empty)
 {
 #>
-        public void <#= item.name.RemoveSpecialCharacters()#>_<#= tc.Id#>() { new PostmanWrapper(this.GetType().Name, "<#= item.name.RemoveSpecialCharacters()#>", "<#=tc.Dataline#>").Run(TestContext); }
+        public void <#= folder.Name #>_<#= tc.Id#>() { new PostmanWrapper(this.GetType().Name, "<#= folder.Name#>", "<#=tc.Dataline#>").Run(TestContext); }
 
 <#
 }
 else
 {
 #>
-        public void <#= item.name.RemoveSpecialCharacters()#>_<#= tc.Id#>() { new PostmanWrapper(this.GetType().Name, "<#= item.name.RemoveSpecialCharacters()#>").Run(TestContext); }
+        public void <#= folder.Name #>_<#= tc.Id#>() { new PostmanWrapper(this.GetType().Name, "<#= folder.Name#>").Run(TestContext); }
 
 <#
 }
@@ -60,7 +59,7 @@ else
 #>
         [TestMethod]
         [Timeout(1000*60)]
-        public void <#= item.name.RemoveSpecialCharacters() #>() { new PostmanWrapper(this.GetType().Name, "<#= item.name.RemoveSpecialCharacters()#>").Run(TestContext); }
+        public void <#= folder.Name #>() { new PostmanWrapper(this.GetType().Name, "<#= folder.Name#>").Run(TestContext); }
 
 <#
 }

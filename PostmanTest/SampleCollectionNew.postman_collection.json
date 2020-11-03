@@ -1,0 +1,58 @@
+{
+	"info": {
+		"_postman_id": "88056764-ebc5-4c53-ad83-70a9d368f285",
+		"name": "SampleCollectionNew",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Folder1New",
+			"item": [
+				{
+					"name": "Test1New",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "dbe0cb04-0c68-4ef4-b066-0dc5fd0da944",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a49bc381-45a5-47db-ae3a-39ea649327e3",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "postman-echo.com/get",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

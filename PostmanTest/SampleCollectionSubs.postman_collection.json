@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "6be9951e-8c44-4114-a6ab-37a68c2c333c",
+		"name": "SampleCollectionSubs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Folder1Newer",
+			"item": [
+				{
+					"name": "Test1New",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a96eb6c9-0881-429d-add9-6c6481d3439d",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "1960f702-9eff-4877-aa08-a5430714a3e6",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "postman-echo.com/get",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "<metadata>\r\n<testcase adoid='12'/>\r\n</metadata>\r\n",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e8894276-be93-4285-ae8a-970e1665609b",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "acacd9bb-b27c-4da4-9f4a-b8794350c096",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "TopFolder",
+			"item": [
+				{
+					"name": "SubFolder1",
+					"item": [
+						{
+							"name": "Test1Sub",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "dae9f9f7-e77b-4526-b06b-53f786bac8bc",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "cce1217e-fb81-4361-812d-53ae00f8584f",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "postman-echo.com/get",
+									"host": [
+										"postman-echo",
+										"com"
+									],
+									"path": [
+										"get"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Subfolder2",
+					"item": [
+						{
+							"name": "Test2Sub",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"id": "4fc3c5d8-f210-4fd9-a221-809b46aa148d",
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"id": "ee74b053-2f88-4269-8187-ffff081dd7d9",
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"  pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "postman-echo.com/get",
+									"host": [
+										"postman-echo",
+										"com"
+									],
+									"path": [
+										"get"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"protocolProfileBehavior": {},
+					"_postman_isSubFolder": true
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
