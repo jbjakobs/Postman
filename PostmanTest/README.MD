@@ -1,0 +1,1 @@
+This folder containing Postman collections, environments and shared variables

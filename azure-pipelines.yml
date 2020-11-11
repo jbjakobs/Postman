@@ -17,6 +17,8 @@ steps:
   displayName: 'Build solution **/*.sln'
   inputs:
     configuration: Release
+  env:
+    System_AccessToken: $(System.AccessToken)
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: PostmanWrapper.Common drop'
   inputs:
