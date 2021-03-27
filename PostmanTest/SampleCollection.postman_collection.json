@@ -1,0 +1,196 @@
+{
+	"info": {
+		"_postman_id": "5a85c92d-f2f1-40b9-8820-70c506fc35c6",
+		"name": "SampleCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Folder1",
+			"item": [
+				{
+					"name": "Test1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "e237218a-b15c-4158-bd75-5aaabcb7a078",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "cac53b10-fe2b-46db-9fe3-3aaea792bd56",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "postman-echo.com/get",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Folder2",
+			"item": [
+				{
+					"name": "Test2a",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "29891678-a4c0-4aaa-87b0-21d12b5d2636",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c73e3ef9-e899-42d0-8400-6742b26332cd",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "postman-echo.com/get",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Test2b",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "5d312258-d2af-4115-b715-166390e9a1a2",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "f1ff3dab-19c3-4c67-b39e-44eaea6d9e91",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"  pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "postman-echo.com/get",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Folder3Failure",
+			"item": [
+				{
+					"name": "Test3",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "f9f46f6b-5b4c-441f-9943-904cfbb7c4f5",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "c3f04b10-37a9-434f-8821-e3faa4a1c14f",
+								"exec": [
+									"pm.test(\"Status code is 202\", function () {\r",
+									"  pm.response.to.have.status(202);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "postman-echo.com/get",
+							"host": [
+								"postman-echo",
+								"com"
+							],
+							"path": [
+								"get"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
